@@ -47,7 +47,7 @@ class ImageResizeProcess extends ProcessAbstract
                 }
                 
                 // On va tester si le fichier existe déjà
-                $sma_src = ARCHIVE_DIR;
+                $sma_src = ARCHIVE_DIR."/";
                 switch ($derivativeType) {
                     // Resize square thumbnail.
                     case 'square_thumbnail_constraint':
