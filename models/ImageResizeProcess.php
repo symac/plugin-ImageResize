@@ -95,7 +95,7 @@ class ImageResizeProcess extends ProcessAbstract
                 }
                 else
                 {
-                    _log("Image existe déjà, pas recréée : $sma_src);
+                    _log("Image existe déjà, pas recréée : $sma_src");
                 }
             }
         }
