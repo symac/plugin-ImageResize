@@ -31,6 +31,10 @@ class ImageResizeProcess extends ProcessAbstract
             }
         }
         
+        // At first, we need to set all image/jpg to has_derivative_image = 1
+        // Because we have commented the createDerivatives line in application/models/File/ProcessUploadJob.php
+        $sql = "UPDATE {$db->File} set has_derivative_image='1' where mime_browser='image/jpeg';";
+        
         // Iterate all image files in the archive.
         $sql = "SELECT * FROM {$db->File} WHERE has_derivative_image = 1";
         foreach ($db->query($sql)->fetchAll() as $imageFile) {
