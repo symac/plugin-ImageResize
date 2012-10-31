@@ -30,10 +30,10 @@ class ImageResizeProcess extends ProcessAbstract
                 unset($constraints[$key]);
             }
         }
-        
-        // At first, we need to set all image/jpg to has_derivative_image = 1
-        // Because we have commented the createDerivatives line in application/models/File/ProcessUploadJob.php
-        $sql = "UPDATE {$db->File} set has_derivative_image='1' where mime_browser='image/jpeg';";
+
+	// All JPG -> has_derivative_images
+	$sql = "UPDATE {$db->File} set has_derivative_image='1' where mime_browser='image/jpeg';";
+	$db->query($sql);
         
         // Iterate all image files in the archive.
         $sql = "SELECT * FROM {$db->File} WHERE has_derivative_image = 1";
@@ -96,10 +96,10 @@ class ImageResizeProcess extends ProcessAbstract
                     
                     // Store the file.
                     $storage->store($source, $dest);
-                }
+		}
                 else
                 {
-                    _log("Image existe déjà, pas recréée : $sma_src");
+#                    _log("Image existe déjà, pas recréée : $sma_src");
                 }
             }
         }
