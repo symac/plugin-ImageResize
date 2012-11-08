@@ -13,7 +13,6 @@ class ImageResizeProcess extends ProcessAbstract
         // des lots de fichiers (via Dropbox) sans générer les vignettes à la volée, et sans pour
         // autant être obligé de regénérer toutes les vignettes à chaque fois, mais simplement le diff
         $SMA_REBUILD = false;
-        
         $db = get_db();
         $storage = Zend_Registry::get('storage');
         
@@ -34,11 +33,12 @@ class ImageResizeProcess extends ProcessAbstract
 	// All JPG -> has_derivative_images
 	$sql = "UPDATE {$db->File} set has_derivative_image='1' where mime_browser='image/jpeg';";
 	$db->query($sql);
-        
         // Iterate all image files in the archive.
         $sql = "SELECT * FROM {$db->File} WHERE has_derivative_image = 1";
-        foreach ($db->query($sql)->fetchAll() as $imageFile) {
-            
+				$stmt = $db->query($sql);
+
+        # foreach ($db->query($sql)->fetchAll() as $imageFile) {
+				while ($imageFile = $stmt->fetch()) {
             // Iterate the constraints.
             foreach ($constraints as $derivativeType => $constraint) {
                 
@@ -49,6 +49,7 @@ class ImageResizeProcess extends ProcessAbstract
                 if (!file_exists($filesPath)) {
                     continue;
                 }
+
                 
                 // On va tester si le fichier existe déjà
                 $sma_src = ARCHIVE_DIR."/";
